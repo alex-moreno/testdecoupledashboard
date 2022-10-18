@@ -1,4 +1,4 @@
-name: Composer tests
+name: Composer tests with php extensions
 
 on:
   workflow_dispatch:
