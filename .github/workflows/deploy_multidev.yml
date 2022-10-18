@@ -24,6 +24,8 @@ jobs:
     name: Deploy to Pantheon MultiDev
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v2
+
       - name: Validate PWD
         run: pwd
 
