@@ -1,0 +1,72 @@
+name: Composer tests
+
+on:
+  workflow_dispatch:
+    inputs:
+      destination_env:
+        description: 'To which MultiDev environment do you wish to deploy? (m1-m10)'
+        required: true
+        default: 'm1'
+      clone_env:
+        description: 'From which other Pantheon environment shall we clone the database and files? (dev, test, live, m1-m10)'
+        required: true
+        default: 'dev'
+
+env:
+  php_version: '7.4'
+  pantheon_env: ${{ github.event.inputs.destination_env }}
+  pantheon_repo: ${{ secrets.PANTHEON_REPO }}
+  pantheon_site_name: ${{ secrets.PANTHEON_SITE_NAME }}
+
+jobs:
+
+  deploy:
+    name: Deploy to Pantheon MultiDev
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Validate PWD
+        run: pwd
+
+
+    - name: Setup PHP with PECL extension
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: '8.1'
+        extensions: imagick, swoole
+        tools: composer:v2
+
+      - name: Validate composer.json and composer.lock
+        run: composer validate --strict
+
+      - name: Get Composer cache directory
+        id: composer-cache-dir
+        run: echo "::set-output name=dir::$(composer config cache-files-dir)"
+
+      - name: Cache Composer dependencies
+        uses: actions/cache@0781355a23dac32fd3bac414512f4b903437991a # v2.1.3
+        with:
+          path: ${{ steps.composer-cache-dir.outputs.dir }}
+          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-composer-
+
+      - name: Avoid GitHub rate limit for Composer
+        run: composer config -g github-oauth.github.com ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Composer install
+        run: composer install --no-dev --no-interaction --no-progress
+
+      - name: Place SSH key
+        uses: shimataro/ssh-key-action@6f350ca8484d8d55c2e361e74d17e638dabe713a # v2.1.0
+        with:
+          key: ${{ secrets.PANTHEON_SSH_KEY }}
+          known_hosts: ${{ secrets.KNOWN_HOSTS }}
+
+      - name: Install Terminus
+        # We use cgr to avoid dependency conflicts
+        run: |
+          composer global require consolidation/cgr:^2.0.5
+          cgr pantheon-systems/terminus:^2.6.1
+          terminus auth:login --machine-token=${{ secrets.PANTHEON_MACHINE_TOKEN }}
