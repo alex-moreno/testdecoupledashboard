@@ -40,5 +40,6 @@ jobs:
           pantheon_site_name: '${{ secrets.PANTHEON_SITE_NAME }}'
         run: |
           echo secrets.PANTHEON_SITE_NAME
+          echo pantheon_site_name
           echo ${{ secrets.KNOWN_HOSTS }}
           terminus multidev:create $pantheon_site_name.dev $BASE_BRANCH
