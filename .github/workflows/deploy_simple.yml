@@ -21,7 +21,7 @@ env:
 jobs:
 
   deploy:
-    name: Deploy to Pantheon MultiDev
+    name: Simple workflow
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
