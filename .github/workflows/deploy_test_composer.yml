@@ -29,7 +29,6 @@ jobs:
     - name: Validate PWD
       run: pwd
 
-
     - name: Setup PHP with PECL extension
       uses: shivammathur/setup-php@v2
       with:
