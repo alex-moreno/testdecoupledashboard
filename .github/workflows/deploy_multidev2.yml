@@ -40,9 +40,4 @@ jobs:
           pantheon_site_name: '${{ secrets.PANTHEON_SITE_NAME }}'
         run: |
           echo ${{ secrets.KNOWN_HOSTS }}
-          git remote add pantheon $pantheon_repo
-          git push pantheon HEAD:master
-          commit_message=$(git log -1 --pretty=%B)
-          terminus env:deploy $pantheon_site_name.test --note="Automated deploy: $commit_message"
-          terminus env:deploy $pantheon_site_name.live --note="Automated deploy: $commit_message"
-
+          terminus multidev:create $pantheon_site_name.live $BASE_BRANCH
