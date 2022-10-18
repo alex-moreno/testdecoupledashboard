@@ -24,6 +24,9 @@ jobs:
     name: Deploy to Pantheon MultiDev
     runs-on: ubuntu-latest
     steps:
+      - name: Validate PWD
+        run: pwd
+
       - name: Validate composer.json and composer.lock
         run: composer validate --strict
 
