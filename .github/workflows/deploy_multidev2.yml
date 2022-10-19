@@ -14,7 +14,8 @@ on:
 
 env:
   php_version: '7.4'
-  pantheon_env: ${{ github.event.inputs.destination_env }}
+  destination_env: ${{ github.event.inputs.destination_env }}
+  clone_env: ${{ github.event.inputs.clone_env }}
   pantheon_repo: ${{ secrets.PANTHEON_REPO }}
   pantheon_site_name: ${{ secrets.PANTHEON_SITE_NAME }}
   known_hosts: ${{ secrets.KNOWN_HOSTS }}
@@ -44,6 +45,8 @@ jobs:
           echo $known_hosts
           echo "environment: "
           echo $pantheon_env
-          echo "env input"
-          echo $destination_env
-          terminus multidev:create $pantheon_site_name.dev main
+          terminus multidev:create $pantheon_site_name.$clone_env $destination_env
+
+
+#      multidev:merge-from-dev Merges code commits from the Dev environment into a Multidev environment.
+#      multidev:merge-to-dev   Merges code commits from a Multidev environment into the Dev environment..
