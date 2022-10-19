@@ -44,4 +44,6 @@ jobs:
           echo $known_hosts
           echo "environment: "
           echo $pantheon_env
+          echo "env input"
+          echo $destination_env
           terminus multidev:create $pantheon_site_name.dev main
