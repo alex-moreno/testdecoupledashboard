@@ -41,4 +41,4 @@ jobs:
           echo "testing"
           echo "Known hosts"
           echo ${{ secrets.KNOWN_HOSTS }}
-          terminus multidev:create $pantheon_site_name.dev $BASE_BRANCH
+          terminus multidev:create $pantheon_site_name "main"
