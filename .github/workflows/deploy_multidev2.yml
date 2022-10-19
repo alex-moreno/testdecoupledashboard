@@ -17,6 +17,7 @@ env:
   pantheon_env: ${{ github.event.inputs.destination_env }}
   pantheon_repo: ${{ secrets.PANTHEON_REPO }}
   pantheon_site_name: ${{ secrets.PANTHEON_SITE_NAME }}
+  known_hosts: ${{ secrets.KNOWN_HOSTS }}
 
 jobs:
 
@@ -40,5 +41,7 @@ jobs:
           echo "site name"
           echo $pantheon_site_name.dev
           echo "Known hosts"
-          echo ${{ secrets.KNOWN_HOSTS }}
+          echo $known_hosts
+          echo "environment: "
+          echo $pantheon_env
           terminus multidev:create $pantheon_site_name.dev main
