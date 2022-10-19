@@ -27,7 +27,7 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: site name
-        run: echo secrets.PANTHEON_SITE_NAME
+        run: echo "$pantheon_site_name"
 
       - name: Installing Terminus
         uses: kopepasah/setup-pantheon-terminus@master
@@ -35,9 +35,6 @@ jobs:
           pantheon-machine-token: ${{ secrets.PANTHEON_MACHINE_TOKEN }}
 
       - name: deployer
-        env:
-          pantheon_repo: '${{ secrets.PANTHEON_REPO }}'
-          pantheon_site_name: '${{ secrets.PANTHEON_SITE_NAME }}'
         run: |
           echo $secrets.PANTHEON_SITE_NAME
           echo $pantheon_site_name
