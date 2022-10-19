@@ -37,8 +37,8 @@ jobs:
       - name: deployer
         run: |
           echo $secrets.PANTHEON_SITE_NAME
-          echo $pantheon_site_name
-          echo "testing"
+          echo "site name"
+          echo $pantheon_site_name.dev
           echo "Known hosts"
           echo ${{ secrets.KNOWN_HOSTS }}
-          terminus multidev:create $pantheon_site_name "main"
+          terminus multidev:create $pantheon_site_name.dev main
