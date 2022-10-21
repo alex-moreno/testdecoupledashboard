@@ -4,9 +4,9 @@ on:
   workflow_dispatch:
     inputs:
       destination_env:
-        description: 'To which MultiDev environment do you wish to deploy? (dev-build)'
+        description: 'To which MultiDev environment do you wish to deploy? (dev-build, stage-build)'
         required: true
-        default: 'm1'
+        default: 'dev-build'
       clone_env:
         description: 'From which other Pantheon environment shall we clone the database and files? (dev, test, live, m1-m10)'
         required: true
@@ -46,7 +46,3 @@ jobs:
           echo "environment: "
           echo $pantheon_env
           terminus multidev:create $pantheon_site_name.$clone_env $destination_env
-
-
-#      multidev:merge-from-dev Merges code commits from the Dev environment into a Multidev environment.
-#      multidev:merge-to-dev   Merges code commits from a Multidev environment into the Dev environment..
