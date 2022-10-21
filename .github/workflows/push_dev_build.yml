@@ -16,7 +16,7 @@ jobs:
     - name: deployer
       env:
         pantheon_repo: '${{ secrets.PANTHEON_REPO }}'
-        github_repo: '${{ secrets.GITHUB_REPO }}'
+        github_repo: '${{ secrets.GHUB_REPO }}'
       run: |
         git remote add pantheon $github_repo
         git push pantheon HEAD:master
