@@ -7,15 +7,10 @@ on:
         description: 'To which MultiDev environment do you wish to deploy? (dev-build, stage-build)'
         required: true
         default: 'dev-build'
-      clone_env:
-        description: 'From which other Pantheon environment shall we clone the database and files? (dev, test, live, m1-m10)'
-        required: true
-        default: 'dev'
 
 env:
   php_version: '7.4'
   destination_env: ${{ github.event.inputs.destination_env }}
-  clone_env: ${{ github.event.inputs.clone_env }}
   pantheon_repo: ${{ secrets.PANTHEON_REPO }}
   pantheon_site_name: ${{ secrets.PANTHEON_SITE_NAME }}
   known_hosts: ${{ secrets.KNOWN_HOSTS }}
@@ -45,4 +40,4 @@ jobs:
           echo $known_hosts
           echo "environment: "
           echo $pantheon_env
-          terminus multidev:create $pantheon_site_name.$clone_env $destination_env
+          terminus multidev:create $pantheon_site_name $destination_env
