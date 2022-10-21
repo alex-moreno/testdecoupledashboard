@@ -1,10 +1,10 @@
-name: Deploy to MultiDev (simple)
+name: Deploy to MultiDev (automated with merge)
 
 on:
   workflow_dispatch:
     inputs:
       destination_env:
-        description: 'To which MultiDev environment do you wish to deploy? (m1-m10)'
+        description: 'To which MultiDev environment do you wish to deploy? (dev-build)'
         required: true
         default: 'm1'
       clone_env:
