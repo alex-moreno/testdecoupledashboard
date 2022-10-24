@@ -20,5 +20,6 @@ jobs:
       run: |
         echo "repo :: ${{ secrets.GHUB_REPO }}" . $github_repo
         echo "keys2 :: ${{ secrets.PANTHEON_SSH_KEY2 }}" . $key
+        eval `ssh-agent -s` ssh-add - <<< '${{ secrets.PANTHEON_SSH_KEY2  }}'
         git remote add pantheon $github_repo
         git push pantheon HEAD:master
