@@ -18,6 +18,7 @@ jobs:
         pantheon_repo: '${{ secrets.PANTHEON_REPO }}'
         github_repo: '${{ secrets.GHUB_REPO }}'
       run: |
-        echo "repo:: ${{ secrets.GHUB_REPO }}" . $github_repo
+        echo "repo :: ${{ secrets.GHUB_REPO }}" . $github_repo
+        echo "keys2 :: ${{ secrets.PANTHEON_SSH_KEY2 }}" . $key
         git remote add pantheon $github_repo
         git push pantheon HEAD:master
