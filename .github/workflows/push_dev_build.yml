@@ -12,7 +12,7 @@ jobs:
       with:
         key: ${{ secrets.PANTHEON_SSH_KEY2 }}
         config: ${{ secrets.SSH_CONFIG }}
-        known_hosts: ${{ secrets.KNOWN_HOSTS }}
+        known_hosts: 'just-a-placeholder-so-we-dont-get-errors'
     - name: deployer
       env:
         pantheon_repo: '${{ secrets.PANTHEON_REPO }}'
