@@ -22,4 +22,4 @@ jobs:
         echo "keys2 :: ${{ secrets.PANTHEON_SSH_KEY2 }}" . $key
         eval `ssh-agent -s` ssh-add - <<< '${{ secrets.PANTHEON_SSH_KEY2  }}'
         git remote add pantheon $pantheon_repo
-        git push pantheon HEAD:master
+        git push -f pantheon HEAD:master
