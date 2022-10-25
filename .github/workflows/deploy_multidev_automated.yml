@@ -1,12 +1,9 @@
 name: Deploy to MultiDev (automated with merge TODO)
 
 on:
-  workflow_dispatch:
-    inputs:
-      destination_env:
-        description: 'To which MultiDev environment do you wish to deploy? (dev-build, stage-build)'
-        required: true
-        default: 'dev-build'
+  pull_request:
+    branches:    
+      - 'feature/**'
 
 env:
   php_version: '7.4'
